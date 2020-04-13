@@ -1,0 +1,22 @@
+pip install flask
+pip install python-dotenv
+pip install flask-wtf
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask-login
+pip install flask-bootstrap
+
+flask db init
+    -> creates migration repository
+flask db migrate -m '<insert message>'
+    -> creates new or delete tables or fields
+flask db upgrade
+    -> makes all the changes 
+
+Creating a user the termial or powershell
+    -> run 'flask shell'
+    -> u = User(username = '<insert username>', email = '<insert email>')
+    -> u.setpassword('<insert password>')
+    -> db.session.add(u)
+    -> db.session.commit()
+        -> makes all the changes into the database
