@@ -6,6 +6,9 @@ pip install flask-migrate
 pip install flask-login
 pip install flask-bootstrap
 
+flask run
+    -> to run the program
+
 flask db init
     -> creates migration repository
 flask db migrate -m '<insert message>'
