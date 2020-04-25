@@ -11,8 +11,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    assignments = db.relationship('Assignment',backref = 'creator', lazy = 'dynamic')
-    tasks = db.relationship('Task',backref = 'creator', lazy = 'dynamic')
+    #assignments = db.relationship('Assignment',backref = 'creator', lazy = 'dynamic')
+    #tasks = db.relationship('Task',backref = 'creator', lazy = 'dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -37,10 +37,10 @@ class Assignment(db.Model):
     tutle = db.Column(db.String(64))
     summary = db.Column(db.String(140))
     due_date = db.Column(db.String(64))
-    creator = db.Column(db.Integer, db.ForeignKey('user.id'))
+    #creator = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(64))
     completed = db.Column(db.Boolean, nullable = False)
-    creator = db.Column(db.Integer, db.ForeignKey('user.id'))
+    #creator = db.Column(db.Integer, db.ForeignKey('user.id'))
