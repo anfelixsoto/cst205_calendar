@@ -4,7 +4,14 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from app.models import User
+from wtforms.fields.html5 import DateField, TimeField
 
+class IndexForm(FlaskForm):
+    title = TextAreaField('New Task', validators = [DataRequired()])
+    submit = SubmitField(label = 'Create Task')
+
+class AssignmentButton(FlaskForm):
+    submit = SubmitField(label = 'New Assignment')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -30,3 +37,11 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class AssignmentForm(FlaskForm):
+    title = StringField('Assignment Name', validators = [DataRequired()])
+    class_name = StringField('Class Name', validators = [DataRequired()])
+    summary = TextAreaField('Summary...')
+    due_date = DateField('Due Date', format='%Y-%m-%d')
+    due_time = TimeField('Due Time')
+    submit = SubmitField('Create Assignment')

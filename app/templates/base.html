@@ -1,7 +1,7 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-    {% if title %}{{ title }} - Calendar <b>+</b> </Projet>{% else %}Welcome to Calendar <b>+</b>{% endif %}
+    {% if title %}{{ title }} - Calendar+ </Projet>{% else %}Welcome to Calendar <b>+</b>{% endif %}
 {% endblock %}
 
 {% block navbar %}
@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}"> Calendar <b>+</b> </a>
+                <a class="navbar-brand" href="{{ url_for('index') }}"> Calendar<b>+</b></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -42,4 +42,9 @@
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
 {% endblock %}

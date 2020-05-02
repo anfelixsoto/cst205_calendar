@@ -1,4 +1,4 @@
-flask db init
+flaflask db init
     -> creates migration repository
 flask db migrate -m '<insert message>'
     -> creates new or delete tables or fields

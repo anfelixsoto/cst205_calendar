@@ -1,13 +1,29 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+<head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
 {% block app_content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
+    <p>Hi, {{ current_user.username }}!</p>
     {% if form %}
     {{ wtf.quick_form(form) }}
     <br>
     {% endif %}
-    {% for assignment in assignments %}
-        {% include '_assignment.html' %}
+    {% if button %}
+    {{ wtf.quick_form(button) }}
+    {% endif %}
+
+    <br>
+    <div class = 'row'>
+        {% for assignment in assignments %}
+            {% include '_assignment.html' %}
+        {% endfor %}
+    </div>
+    <br>
+    {% for task in tasks %}
+        {% include '_task.html' %}
     {% endfor %}
 {% endblock %}

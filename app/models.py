@@ -11,8 +11,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    #assignments = db.relationship('Assignment',backref = 'creator', lazy = 'dynamic')
-    #tasks = db.relationship('Task',backref = 'creator', lazy = 'dynamic')
+    assignments = db.relationship('Assignment',backref = 'creator', lazy = 'dynamic')
+    tasks = db.relationship('Task',backref = 'creator', lazy = 'dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -34,13 +34,21 @@ def load_user(id):
 
 class Assignment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    tutle = db.Column(db.String(64))
+    class_name = db.Column(db.String(64))
+    title = db.Column(db.String(64))
     summary = db.Column(db.String(140))
-    due_date = db.Column(db.String(64))
-    #creator = db.Column(db.Integer, db.ForeignKey('user.id'))
+    due = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Assignment {}>'.format(self.title)
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(64))
-    completed = db.Column(db.Boolean, nullable = False)
-    #creator = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Task {}>'.format(self.title)
