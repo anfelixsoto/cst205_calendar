@@ -88,7 +88,7 @@ def create_assignment():
             title = form.title.data,
             summary = form.summary.data,
             due = dt,
-            creator = current_user 
+            creator = current_user
         )
 
         db.session.add(assignment)
@@ -97,3 +97,11 @@ def create_assignment():
         return redirect(url_for('index'))
 
     return render_template('assignment.html', title = 'New Assignment', form = form)
+
+@app.route('/delete_assignment/<assignment_id>', methods = ['POST'])
+@login_required
+def delete_assignment(assignment_id):
+    post = Assignment.query.filter_by(id = assignment_id).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('index'))
