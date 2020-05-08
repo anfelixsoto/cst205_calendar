@@ -15,8 +15,11 @@ date_format = '%Y-%m-%d %H:%M:%S'
 def index():
     button = AssignmentButton()
 
-    assignments = current_user.assignments.all()
-    tasks = current_user.tasks.all()
+    assignments = current_user.assignments.order_by(Assignment.due.asc())
+
+    for assignment in assignments:
+        print(assignment.due)
+        print('timestamp: ' + str(assignment.timestamp))
         
     if button.validate_on_submit():
         return redirect(url_for('create_assignment'))
@@ -62,21 +65,23 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+def time_convert(date, time):
+    f_date = date + ' ' + time
+    print(f_date)
+    dt = datetime.strptime(f_date, date_format)
+    timezone = pytz.timezone('US/Eastern')
+    d_aware = timezone.localize(dt)
+    d_aware.tzinfo
+    return dt
+
+
 @app.route('/create_assignment', methods = ['GET', 'POST'])
 @login_required
 def create_assignment():
     form = AssignmentForm()
 
     if form.validate_on_submit():
-        print(type(form.due_date.data))
-        f_date = str(form.due_date.data) + " "  + str(form.due_time.data)
-        print(f_date)
-        dt = datetime.strptime(f_date, date_format)
-        timezone = pytz.timezone('Etc/Greenwich')
-        d_aware = timezone.localize(dt)
-        d_aware.tzinfo
-        print(dt)
-
+        dt = time_convert(str(form.due_date.data), str(form.due_time.data))
 
         assignment = Assignment(
             class_name = form.class_name.data,

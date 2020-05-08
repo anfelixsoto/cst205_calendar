@@ -3,11 +3,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
-<div class="column">
      <div class="card">
-        <h3>{{ assignment.class_name }} <br> {{ assignment.title }}</h3>
-          <p>Due Date: {{ moment(assignment.due).format('LLL') }}</p>
+        <h3>{{ assignment.class_name }} - {{ assignment.title }} - {{ moment(assignment.due).format('LL') }}</h3>
+          <p> Due {{ moment(assignment.due).fromNow() }}</p>
           <p>{{ assignment.summary }}</p>
-          <p>Assignment created <br> {{ moment(assignment.timestamp).format('LLL') }}</p>
+          <p>Assignment created: {{ moment(assignment.timestamp).format('LLL') }}</p>
     </div>
-</div>
