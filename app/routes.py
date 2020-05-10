@@ -9,6 +9,14 @@ from app.models import User, Assignment, Task
 
 date_format = '%Y-%m-%d %H:%M:%S'
 
+
+@app.route('/calendar', methods = ['GET'])
+@login_required
+def calendar():
+    return render_template('calendar.html')
+
+
+
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/index', methods = ['GET', 'POST'])
 @login_required
