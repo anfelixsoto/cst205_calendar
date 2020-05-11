@@ -73,7 +73,7 @@
             temp = ev.date;
             console.log("ev in rando:", ev)
             ev.date = self.current.clone(temp);
-            ev.date = ev.date;
+            ev.date._d = temp;
         });
         
         
