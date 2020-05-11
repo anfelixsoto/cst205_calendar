@@ -14,15 +14,20 @@ date_format = '%Y-%m-%d %H:%M:%S'
 @login_required
 def calendar():
     data = []
+    dates = []
     assignments = current_user.assignments.order_by(Assignment.due.asc())
     
     for assignment in assignments:
         temp = str(assignment.title)
+        temp2 = str(assignment.due)
         print(temp)
+        print(temp2)
         data.append(assignment.title)
+        dates.append(assignment.due)
 
     print(data)
-    return render_template('calendar.html', assignments = data)
+    print(dates)
+    return render_template('calendar.html', assignments = data, dates = dates)
 
 
 
