@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar_styles.css') }}">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 <br>
 <a href='/index' role="button" class="btn btn-info">List View</a>
@@ -9,6 +12,7 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
 <script>
+    
     !function() {
 
         var today = moment();
@@ -331,36 +335,60 @@
         }();
 
         !function() {
-        var data = [
-        { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange' },
-        { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange' },
-        { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange' },
-        { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
+            var parser = new DOMParser();
 
-        { eventName: 'Game vs Portalnd', calendar: 'Sports', color: 'blue' },
-        { eventName: 'Game vs Houston', calendar: 'Sports', color: 'blue' },
-        { eventName: 'Game vs Denver', calendar: 'Sports', color: 'blue' },
-        { eventName: 'Game vs San Degio', calendar: 'Sports', color: 'blue' },
+            assignment = `{{ assignments }}`
 
-        { eventName: 'School Play', calendar: 'Kids', color: 'yellow' },
-        { eventName: 'Parent/Teacher Conference', calendar: 'Kids', color: 'yellow' },
-        { eventName: 'Pick up from Soccer Practice', calendar: 'Kids', color: 'yellow' },
-        { eventName: 'Ice Cream Night', calendar: 'Kids', color: 'yellow' },
+            for (i= 0; i < assignment.length; i++){
+                assignment = assignment.replace(/&#39;/, '')
+                assignment = assignment.replace(/\[/, '')
+                assignment = assignment.replace(/\]/, '')
+            }
 
-        { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green' },
-        { eventName: 'Bowling Team', calendar: 'Other', color: 'green' },
-        { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green' },
-        { eventName: 'Startup Weekend', calendar: 'Other', color: 'green' }
-        ];
+            console.log(assignment)
+
+            assignment = assignment.split(', ')
+
+            console.log(assignment)            
+
+            console.log("assignment:", assignment)
+            var data = [];
+            for (i = 0; i < assignment.length; i++){
+                data.push({ eventName: assignment[i], calendar: 'School', color: 'green'})
+            }
+
+            console.log(data);
+            
+            // var data = [
+            // { eventName: 'Lunch Meeting w/ Mark', calendar: 'Work', color: 'orange' },
+            // { eventName: 'Interview - Jr. Web Developer', calendar: 'Work', color: 'orange' },
+            // { eventName: 'Demo New App to the Board', calendar: 'Work', color: 'orange' },
+            // { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
+
+            // { eventName: 'Game vs Portalnd', calendar: 'Sports', color: 'blue' },
+            // { eventName: 'Game vs Houston', calendar: 'Sports', color: 'blue' },
+            // { eventName: 'Game vs Denver', calendar: 'Sports', color: 'blue' },
+            // { eventName: 'Game vs San Degio', calendar: 'Sports', color: 'blue' },
+
+            // { eventName: 'School Play', calendar: 'Kids', color: 'yellow' },
+            // { eventName: 'Parent/Teacher Conference', calendar: 'Kids', color: 'yellow' },
+            // { eventName: 'Pick up from Soccer Practice', calendar: 'Kids', color: 'yellow' },
+            // { eventName: 'Ice Cream Night', calendar: 'Kids', color: 'yellow' },
+
+            // { eventName: 'Free Tamale Night', calendar: 'Other', color: 'green' },
+            // { eventName: 'Bowling Team', calendar: 'Other', color: 'green' },
+            // { eventName: 'Teach Kids to Code', calendar: 'Other', color: 'green' },
+            // { eventName: 'Startup Weekend', calendar: 'Other', color: 'green' }
+            // ];
 
 
 
-        function addDate(ev) {
-        
-        }
+            function addDate(ev) {
+            
+            }
 
-        var calendar = new Calendar('#calendar', data);
+            var calendar = new Calendar('#calendar', data);
 
-    }();
+        }();
 
 </script>

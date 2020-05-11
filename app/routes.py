@@ -10,10 +10,19 @@ from app.models import User, Assignment, Task
 date_format = '%Y-%m-%d %H:%M:%S'
 
 
-@app.route('/calendar', methods = ['GET'])
+@app.route('/calendar', methods = ['GET', 'POST'])
 @login_required
 def calendar():
-    return render_template('calendar.html')
+    data = []
+    assignments = current_user.assignments.order_by(Assignment.due.asc())
+    
+    for assignment in assignments:
+        temp = str(assignment.title)
+        print(temp)
+        data.append(assignment.title)
+
+    print(data)
+    return render_template('calendar.html', assignments = data)
 
 
 
@@ -24,7 +33,7 @@ def index():
     button = AssignmentButton()
 
     assignments = current_user.assignments.order_by(Assignment.due.asc())
-
+    
     for assignment in assignments:
         print(assignment.due)
         print('timestamp: ' + str(assignment.timestamp))
