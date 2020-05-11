@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>Edit assignment</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <form method = post>
+            {{ wtf.form_field(form.title) }}
+            {{ wtf.form_field(form.class_name) }}
+            {{ wtf.form_field(form.summary) }}
+            {{ wtf.form_field(form.due_date) }}
+            {{ wtf.form_field(form.due_time) }}
+            <input type="submit" name="submit" value="Submit"/>
+      </form>
+        </div>
+    </div>
+    <br>
+    <p>
+        </p>
+{% endblock %}

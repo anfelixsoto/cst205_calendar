@@ -127,3 +127,24 @@ def delete_assignment(assignment_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/edit_assignment/<assignment_id>', methods = ['GET', 'POST'])
+@login_required
+def edit_assignment(assignment_id):
+
+    post = Assignment.query.filter_by(id = assignment_id).first()
+    if post:
+        form = AssignmentForm(formdata=request.form, obj=post)
+        if request.method == 'POST':
+            save_changes(post, form)
+            return redirect(url_for('index'))
+        return render_template('edit_assignment.html', form = form)
+    
+
+def save_changes(post, form, new=False):
+    post.class_name = form.class_name.data
+    post.title = form.title.data
+    post.summary = form.summary.data
+    post.due = form.due_date.data
+    db.session.commit()
+
